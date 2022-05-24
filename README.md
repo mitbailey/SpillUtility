@@ -1,5 +1,5 @@
-# Directory Backup Utility
-Recursively copies a directory, generating an identical directory whose name is appended with the date and time.
+# Directory Spill Utility
+Moves the contents of each directory in the current directory to the current directory.
 
 The utility is intended for use on Windows or Linux.
 
@@ -53,9 +53,11 @@ To cleanup, run:
 
 # Usage
 
-When invoked, the program copies a directory recursively and places it in another directory named as the original copied directory concatenated with the date and time in ISO8601 format.
+When invoked, the program moves the contents of each directory in the current directory to the current directory. Merges conflicting folder names.
 
-For example, when run to backup `C:/Example/Folder` on 2021.12.02 at 09:55, the program will create `C:/Example/Folder_20211102T095500` whose contents will be identical to the source folder at the time of running.
+For example, when run in `C:/Example/Folder`, the program will create move the contents of subdirectories `C:/Example/Folder/sub1`, `C:/Example/Folder/sub2`, etc, to `C:/Example/Folder`. Therefore, `C:/Example/Folder/sub1/note.txt` will move to become `C:/Example/Folder/note.txt`.
+
+__WARNING: The original subdirectories will not exist after this operation!__ In the above example, this means that `C:/Example/Folder/sub1`, `C:/Example/Folder/sub2`, etc, will no longer exist.
 ___
 ## ___Windows___
 1. Either compile the executable ___or___ download from the releases page.
@@ -71,39 +73,26 @@ If the executable is downloaded and run directly, the program will use the defau
 ### Command Line Invocation
 _via Command Prompt_
 ___
-__No arguments__ will result in the program copying the executable's current directory and placing it one level above as a sibling of the current directory.
+__No arguments__
 
-`backup`
+`spill`
 ___
-__One argument__ allows specification of the absolute path of the desired output. The program will still copy the executable's current directory, but will now place it into the directory specified by the argument.
 
-`backup C:/path/to/output/`
-___
-__Two arguments__ allows specification of the absolute path of the desired output and input. The program will copy the directory specified by the input path argument and place it in the directory specified by the output path argument.
-
-`backup C:/path/to/output/ C:/path/to/input`
-___
 ## ___Linux___
 1. Compile the executable.
 
 2. Place the executable inside the directory to be copied.
   
-The command line invocation includes two optional arguments, the absolute path to the output and absolute path to the input.
+The command line invocation includes no optional arguments.
 
 ### Command Line Invocation
 _via Terminal_
 ___
-__No arguments__ will result in the program copying the executable's current directory and placing it one level above as a sibling of the current directory.
+__No arguments__
 
-`./backup.out`
+`./spill.out`
 ___
-__One argument__ allows specification of the absolute path of the desired output. The program will still copy the executable's current directory, but will now place it into the directory specified by the argument.
 
-`./backup.out /path/to/output`
-___
-__Two arguments__ allows specification of the absolute path of the desired output and input. The program will copy the directory specified by the input path argument and place it in the directory specified by the output path argument.
-
-`./backup.out /path/to/output /path/to/input`
 
 # Licensing
 
