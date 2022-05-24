@@ -1,2 +1,2 @@
 @ECHO OFF
-DEL backup.exe
+DEL spill.exe

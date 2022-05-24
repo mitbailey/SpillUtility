@@ -1,11 +1,11 @@
 CXX = g++
 CC = gcc
-CPPOBJS = src/backup.o
+CPPOBJS = src/spill.o
 COBJS =
 EDCXXFLAGS = -I ./ -I ./include/ -Wall -pthread -std=gnu++17 $(CXXFLAGS)
 EDCFLAGS = $(CFLAGS)
-EDLDFLAGS := -lstdc++fs $(LDFLAGS)
-TARGET = backup.out
+EDLDFLAGS := -lstdc++fs -static-libgcc -static-libstdc++ $(LDFLAGS)
+TARGET = spill.out
 
 all: $(COBJS) $(CPPOBJS)
 	$(CXX) $(EDCXXFLAGS) $(COBJS) $(CPPOBJS) -o $(TARGET) $(EDLDFLAGS)
