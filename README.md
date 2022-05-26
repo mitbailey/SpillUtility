@@ -70,13 +70,13 @@ Note that command line arguments can be used by either opening Command Prompt an
 
 If the executable is downloaded and run directly, the program will use the default, no command line arguments invocation.
 
-### Command Line Invocation
+### Command Line Usage `{Required} [Optional]`
 _via Command Prompt_
-___
-__No arguments__
 
-`spill`
-___
+`spill [Directory to Spill] [Directory to Spill Into]`
+
+Note: Defaults to spilling all directories in the current directory into the current directory.
+
 
 ## ___Linux___
 1. Compile the executable.
@@ -85,13 +85,12 @@ ___
   
 The command line invocation includes no optional arguments.
 
-### Command Line Invocation
+### Command Line Usage `{Required} [Optional]`
 _via Terminal_
-___
-__No arguments__
 
-`./spill.out`
-___
+`spill [Directory to Spill] [Directory to Spill Into]`
+
+Note: Defaults to spilling all directories in the current directory into the current directory.
 
 
 # Licensing
