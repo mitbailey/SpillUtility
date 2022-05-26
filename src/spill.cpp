@@ -1,7 +1,7 @@
 /**
  * @file spill.cpp
  * @author Mit Bailey (mitbailey99@gmail.com)
- * @brief Moves the contents of each directory in the current directory to the current directory.
+ * @brief Moves the contents of a directory up one level and deletes the old directory.
  * @version See Git tags for version information.
  * @date 2021.11.26
  *
@@ -22,10 +22,9 @@
  *
  */
 
-#include <cstdio>
 #include <iostream>
 #include <filesystem>
-#include <time.h>
+#include "spill.hpp"
 
 // Spills the contents of files into the current directory.
 // Currently has the issue of not being able to merge same-named directories.
@@ -36,19 +35,18 @@ int redir(std::string src, std::string dest)
     // If our destination path already exists.
     if (std::filesystem::exists(dest))
     {
-        // TODO: It should be invalid for src to be a file at this point... although directory_iterator may throw for us.
         // In this case, there already exists a file with the desired name. Either an overwrite or rename must occur.
         // Here we choose to error out and crash.
         if (!std::filesystem::is_directory(dest))
         {
-            std::cout << "ERROR: The destination " << dest << " already exists and is a file!" << std::endl;
+            std::cout << "WARN: The destination " << dest << " already exists and is a file! Skipping." << std::endl;
             return -1;
         }
 
         // Iterate through all files & directories in source path.
         for (const auto &entry : std::filesystem::directory_iterator(src))
         {
-            // 
+            //
             std::string filename = entry.path().string();
             filename = filename.substr(filename.find_last_of("/\\"));
 
@@ -76,35 +74,6 @@ int redir(std::string src, std::string dest)
     {
         std::filesystem::remove(src);
     }
-
-    return 0;
-}
-
-int main(int argc, char *argv[])
-{
-    for (const auto &entry : std::filesystem::directory_iterator("."))
-    {
-        if (entry.is_directory())
-        {
-            std::cout << "Spilling " << entry.path() << " into " << std::filesystem::current_path() << std::endl;
-
-            for (const auto &sub_entry : std::filesystem::directory_iterator(entry.path()))
-            {
-                // First get the file's path, then the file's name.
-                std::string filename = sub_entry.path().string();
-                filename = filename.substr(filename.find_last_of("/\\"));
-
-                std::cout << "Renaming " << sub_entry.path() << " as " << std::filesystem::current_path().string() + filename << std::endl;
-
-                redir(sub_entry.path().string(), std::filesystem::current_path().string() + filename);
-            }
-
-            std::filesystem::remove(entry.path());
-        }
-    }
-
-    // Operation complete.
-    std::cout << "Everything is OK." << std::endl;
 
     return 0;
 }

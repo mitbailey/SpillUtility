@@ -1,6 +1,6 @@
 CXX = g++
 CC = gcc
-CPPOBJS = src/spill.o
+CPPOBJS = src/main.o src/spill.o
 COBJS =
 EDCXXFLAGS = -I ./ -I ./include/ -Wall -pthread -std=gnu++17 $(CXXFLAGS)
 EDCFLAGS = $(CFLAGS)
